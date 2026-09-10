@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel administrador · Level-Up Gamer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar">
+    <a href="index.html" class="marca"><span class="icono">🎮</span> Level-Up Admin</a>
+    <a href="index.html" class="activo">🏠 Home</a>
+    <a href="productos.html">📦 Productos</a>
+    <a href="ordenes.html">🧾 Órdenes</a>
+    <div class="separador" data-solo-admin></div>
+    <a href="usuarios.html" data-solo-admin>👤 Usuarios</a>
+    <div class="separador"></div>
+    <a href="../index.html">🌐 Ver tienda</a>
+    <a href="#" data-cerrar-sesion>🚪 Cerrar sesión</a>
+  </aside>
+
+  <main class="admin-main">
+    <div class="admin-header">
+      <h1 id="saludo-admin">¡Hola, Administrador!</h1>
+    </div>
+
+    <div class="grilla-productos" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));">
+      <div class="tarjeta-producto"><div class="cuerpo">
+        <span class="categoria">Productos totales</span>
+        <h2 id="stat-productos" style="margin:0;">0</h2>
+      </div></div>
+      <div class="tarjeta-producto"><div class="cuerpo">
+        <span class="categoria">Con stock crítico</span>
+        <h2 id="stat-criticos" style="margin:0; color:var(--error);">0</h2>
+      </div></div>
+      <div class="tarjeta-producto"><div class="cuerpo">
+        <span class="categoria">Usuarios registrados</span>
+        <h2 id="stat-usuarios" style="margin:0;">0</h2>
+      </div></div>
+    </div>
+
+    <section class="seccion" style="padding-bottom:0;">
+      <h2>Accesos rápidos</h2>
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <a href="producto-form.html" class="btn btn-exito">+ Nuevo producto</a>
+        <a href="usuario-form.html" class="btn btn-primario" data-solo-admin>+ Nuevo usuario</a>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script src="../js/datos-productos.js"></script>
+<script src="../js/datos-regiones.js"></script>
+<script src="../js/datos-usuarios.js"></script>
+<script src="../js/validaciones.js"></script>
+<script src="../js/carrito.js"></script>
+<script src="../js/sesion.js"></script>
+<script>
+const usuarioSesion = protegerAdmin();
+if (usuarioSesion){
+  document.getElementById("saludo-admin").textContent = "¡Hola, " + usuarioSesion.nombre + "!";
+  document.getElementById("stat-productos").textContent = PRODUCTOS.length;
+  document.getElementById("stat-criticos").textContent =
+    PRODUCTOS.filter(function(p){ return p.stockCritico && p.stock <= p.stockCritico; }).length;
+  document.getElementById("stat-usuarios").textContent = obtenerTodosLosUsuarios().length;
+
+  document.querySelector("[data-cerrar-sesion]").addEventListener("click", function(e){
+    e.preventDefault();
+    cerrarSesion();
+  });
+}
+</script>
+</body>
+</html>

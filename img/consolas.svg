@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <rect width="400" height="400" fill="#1b1b22"/>
+  <rect width="400" height="400" fill="url(#grid3)"/>
+  <defs>
+    <pattern id="grid3" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#2a2a34" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g transform="translate(200 210) rotate(-20)">
+    <rect x="-140" y="-45" width="280" height="90" rx="18" fill="#e9ecf5"/>
+    <rect x="-140" y="-45" width="280" height="90" rx="18" fill="none" stroke="#1e90ff" stroke-width="3"/>
+    <rect x="-120" y="-20" width="120" height="40" rx="6" fill="#0a0a0d"/>
+    <circle cx="90" cy="0" r="16" fill="#39ff14"/>
+    <circle cx="130" cy="0" r="8" fill="#1e90ff"/>
+  </g>
+  <rect x="120" y="300" width="160" height="10" rx="5" fill="#39393f"/>
+</svg>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Producto · Panel Level-Up Gamer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar">
+    <a href="index.html" class="marca"><span class="icono">🎮</span> Level-Up Admin</a>
+    <a href="index.html">🏠 Home</a>
+    <a href="productos.html" class="activo">📦 Productos</a>
+    <a href="ordenes.html">🧾 Órdenes</a>
+    <div class="separador" data-solo-admin></div>
+    <a href="usuarios.html" data-solo-admin>👤 Usuarios</a>
+    <div class="separador"></div>
+    <a href="../index.html">🌐 Ver tienda</a>
+    <a href="#" data-cerrar-sesion>🚪 Cerrar sesión</a>
+  </aside>
+
+  <main class="admin-main">
+    <div class="admin-header"><h1 id="titulo-form">Nuevo producto</h1></div>
+
+    <div class="form-card form-ancho" style="max-width:640px;">
+      <div class="alerta-formulario" id="producto-alerta"></div>
+      <form id="form-producto" novalidate>
+        <input type="hidden" id="prod-codigo-original">
+
+        <div class="fila-2">
+          <div class="campo">
+            <label for="prod-codigo">Código de producto</label>
+            <input type="text" id="prod-codigo" placeholder="Ej: JM003">
+            <span class="mensaje-error" id="error-prod-codigo"></span>
+          </div>
+          <div class="campo">
+            <label for="prod-categoria">Categoría</label>
+            <select id="prod-categoria"></select>
+            <span class="mensaje-error" id="error-prod-categoria"></span>
+          </div>
+        </div>
+
+        <div class="campo">
+          <label for="prod-nombre">Nombre</label>
+          <input type="text" id="prod-nombre" maxlength="100">
+          <span class="mensaje-error" id="error-prod-nombre"></span>
+        </div>
+
+        <div class="campo">
+          <label for="prod-descripcion">Descripción (opcional)</label>
+          <textarea id="prod-descripcion" maxlength="500"></textarea>
+          <span class="mensaje-error" id="error-prod-descripcion"></span>
+        </div>
+
+        <div class="fila-2">
+          <div class="campo">
+            <label for="prod-precio">Precio (CLP)</label>
+            <input type="number" id="prod-precio" min="0" step="0.01">
+            <span class="ayuda">Mínimo 0 (se considera producto FREE). Admite decimales.</span>
+            <span class="mensaje-error" id="error-prod-precio"></span>
+          </div>
+          <div class="campo">
+            <label for="prod-stock">Stock</label>
+            <input type="number" id="prod-stock" min="0" step="1">
+            <span class="mensaje-error" id="error-prod-stock"></span>
+          </div>
+        </div>
+
+        <div class="fila-2">
+          <div class="campo">
+            <label for="prod-stock-critico">Stock crítico (opcional)</label>
+            <input type="number" id="prod-stock-critico" min="0" step="1">
+            <span class="ayuda">Se avisa cuando el stock cae a este nivel o menos.</span>
+            <span class="mensaje-error" id="error-prod-stock-critico"></span>
+          </div>
+          <div class="campo">
+            <label for="prod-imagen">Imagen (opcional)</label>
+            <input type="text" id="prod-imagen" placeholder="Ej: img/mi-producto.svg">
+            <span class="ayuda">Si se deja vacío, se usa automáticamente la ilustración de la categoría elegida.</span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-exito btn-bloque">Guardar producto</button>
+        <a href="productos.html" class="btn btn-secundario btn-bloque" style="margin-top:10px;">Cancelar</a>
+      </form>
+    </div>
+  </main>
+</div>
+
+<script src="../js/datos-productos.js"></script>
+<script src="../js/datos-regiones.js"></script>
+<script src="../js/datos-usuarios.js"></script>
+<script src="../js/validaciones.js"></script>
+<script src="../js/carrito.js"></script>
+<script src="../js/sesion.js"></script>
+<script>
+const usuarioSesion = protegerAdmin();
+
+const selectCategoria = document.getElementById("prod-categoria");
+selectCategoria.innerHTML = '<option value="">-- Seleccione categoría --</option>' +
+  CATEGORIAS.map(function(c){ return '<option value="' + c + '">' + c + '</option>'; }).join("");
+
+// Modo edición: si viene ?codigo= en la URL, se precargan los datos.
+const parametros = new URLSearchParams(window.location.search);
+const codigoEditar = parametros.get("codigo");
+let productoExistente = null;
+
+if (codigoEditar){
+  productoExistente = obtenerProductoPorCodigo(codigoEditar);
+  if (productoExistente){
+    document.getElementById("titulo-form").textContent = "Editar producto";
+    document.getElementById("prod-codigo-original").value = productoExistente.codigo;
+    document.getElementById("prod-codigo").value = productoExistente.codigo;
+    document.getElementById("prod-categoria").value = productoExistente.categoria;
+    document.getElementById("prod-nombre").value = productoExistente.nombre;
+    document.getElementById("prod-descripcion").value = productoExistente.descripcion || "";
+    document.getElementById("prod-precio").value = productoExistente.precio;
+    document.getElementById("prod-stock").value = productoExistente.stock;
+    document.getElementById("prod-stock-critico").value = productoExistente.stockCritico || "";
+    document.getElementById("prod-imagen").value = productoExistente.imagen || "";
+  }
+}
+
+document.getElementById("form-producto").addEventListener("submit", function(e){
+  e.preventDefault();
+  let esValido = true;
+
+  const codigo = document.getElementById("prod-codigo").value.trim();
+  const categoria = document.getElementById("prod-categoria").value;
+  const nombre = document.getElementById("prod-nombre").value.trim();
+  const descripcion = document.getElementById("prod-descripcion").value.trim();
+  const precio = document.getElementById("prod-precio").value;
+  const stock = document.getElementById("prod-stock").value;
+  const stockCritico = document.getElementById("prod-stock-critico").value;
+  const imagen = document.getElementById("prod-imagen").value.trim();
+
+  if (!validarRequerido(codigo) || !validarLargo(codigo, 3)){
+    mostrarError("prod-codigo", "El código es obligatorio (mínimo 3 caracteres).");
+    esValido = false;
+  } else ocultarError("prod-codigo");
+
+  if (!validarRequerido(categoria)){
+    mostrarError("prod-categoria", "Selecciona una categoría.");
+    esValido = false;
+  } else ocultarError("prod-categoria");
+
+  if (!validarRequerido(nombre) || !validarLargo(nombre, 1, 100)){
+    mostrarError("prod-nombre", "El nombre es obligatorio (máximo 100 caracteres).");
+    esValido = false;
+  } else ocultarError("prod-nombre");
+
+  if (descripcion && !validarLargo(descripcion, 0, 500)){
+    mostrarError("prod-descripcion", "Máximo 500 caracteres.");
+    esValido = false;
+  } else ocultarError("prod-descripcion");
+
+  if (!validarNumero(precio, 0)){
+    mostrarError("prod-precio", "El precio es obligatorio y no puede ser negativo.");
+    esValido = false;
+  } else ocultarError("prod-precio");
+
+  if (!validarEntero(stock, 0)){
+    mostrarError("prod-stock", "El stock es obligatorio, entero y no puede ser negativo.");
+    esValido = false;
+  } else ocultarError("prod-stock");
+
+  if (stockCritico !== "" && !validarEntero(stockCritico, 0)){
+    mostrarError("prod-stock-critico", "Debe ser un entero mayor o igual a 0.");
+    esValido = false;
+  } else ocultarError("prod-stock-critico");
+
+  if (!esValido){
+    mostrarAlertaFormulario("producto-alerta", "Revisa los campos marcados en rojo.", "error");
+    return;
+  }
+
+  const datosProducto = {
+    codigo: codigo, categoria: categoria, nombre: nombre, descripcion: descripcion,
+    precio: Number(precio), stock: parseInt(stock, 10),
+    stockCritico: stockCritico === "" ? 0 : parseInt(stockCritico, 10)
+  };
+  // "imagen" es opcional: si el formulario la deja vacía, imagenProducto()
+  // (definida en datos-productos.js) va a usar igual la de la categoría.
+  if (imagen) datosProducto.imagen = imagen;
+
+  if (productoExistente){
+    Object.assign(productoExistente, datosProducto);
+  } else {
+    PRODUCTOS.push(datosProducto);
+  }
+
+  mostrarAlertaFormulario("producto-alerta", "Producto guardado. Nota: sin base de datos aún, esto vive solo en esta sesión del navegador.", "exito");
+  setTimeout(function(){ window.location.href = "productos.html"; }, 900);
+});
+
+if (usuarioSesion){
+  document.querySelector("[data-cerrar-sesion]").addEventListener("click", function(e){ e.preventDefault(); cerrarSesion(); });
+}
+</script>
+</body>
+</html>

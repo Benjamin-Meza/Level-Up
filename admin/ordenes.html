@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Órdenes · Panel Level-Up Gamer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar">
+    <a href="index.html" class="marca"><span class="icono">🎮</span> Level-Up Admin</a>
+    <a href="index.html">🏠 Home</a>
+    <a href="productos.html">📦 Productos</a>
+    <a href="ordenes.html" class="activo">🧾 Órdenes</a>
+    <div class="separador" data-solo-admin></div>
+    <a href="usuarios.html" data-solo-admin>👤 Usuarios</a>
+    <div class="separador"></div>
+    <a href="../index.html">🌐 Ver tienda</a>
+    <a href="#" data-cerrar-sesion>🚪 Cerrar sesión</a>
+  </aside>
+
+  <main class="admin-main">
+    <div class="admin-header"><h1>Órdenes</h1></div>
+    <p style="color:var(--text-faint); font-size:13.5px;">Vista visible para Administrador y Vendedor. El detalle de cada orden se integrará junto con el backend en la próxima entrega.</p>
+    <div class="tabla-scroll">
+      <table class="tabla-admin">
+        <thead><tr><th>N° Orden</th><th>Cliente</th><th>Fecha</th><th>Estado</th><th>Total</th></tr></thead>
+        <tbody>
+          <tr><td>OC-1001</td><td>Benjamín Meza</td><td>02-09-2026</td><td>Enviado</td><td>$79.990</td></tr>
+          <tr><td>OC-1002</td><td>Camila Rojas</td><td>04-09-2026</td><td>Procesando</td><td>$349.990</td></tr>
+          <tr><td>OC-1003</td><td>Ignacio Soto</td><td>06-09-2026</td><td>Pendiente</td><td>$1.299.990</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<script src="../js/datos-productos.js"></script>
+<script src="../js/datos-regiones.js"></script>
+<script src="../js/datos-usuarios.js"></script>
+<script src="../js/validaciones.js"></script>
+<script src="../js/carrito.js"></script>
+<script src="../js/sesion.js"></script>
+<script>
+  protegerAdmin();
+  const linkCerrar = document.querySelector("[data-cerrar-sesion]");
+  if (linkCerrar) linkCerrar.addEventListener("click", function(e){ e.preventDefault(); cerrarSesion(); });
+</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Productos · Panel Level-Up Gamer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar">
+    <a href="index.html" class="marca"><span class="icono">🎮</span> Level-Up Admin</a>
+    <a href="index.html">🏠 Home</a>
+    <a href="productos.html" class="activo">📦 Productos</a>
+    <a href="ordenes.html">🧾 Órdenes</a>
+    <div class="separador" data-solo-admin></div>
+    <a href="usuarios.html" data-solo-admin>👤 Usuarios</a>
+    <div class="separador"></div>
+    <a href="../index.html">🌐 Ver tienda</a>
+    <a href="#" data-cerrar-sesion>🚪 Cerrar sesión</a>
+  </aside>
+
+  <main class="admin-main">
+    <div class="admin-header">
+      <h1>Productos</h1>
+      <a href="producto-form.html" class="btn btn-exito" data-solo-admin>+ Nuevo producto</a>
+    </div>
+
+    <div class="tabla-scroll">
+      <table class="tabla-admin">
+        <thead>
+          <tr><th>Código</th><th>Nombre</th><th>Categoría</th><th>Precio</th><th>Stock</th><th data-solo-admin>Acciones</th></tr>
+        </thead>
+        <tbody id="tabla-productos-body"></tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<script src="../js/datos-productos.js"></script>
+<script src="../js/datos-regiones.js"></script>
+<script src="../js/datos-usuarios.js"></script>
+<script src="../js/validaciones.js"></script>
+<script src="../js/carrito.js"></script>
+<script src="../js/sesion.js"></script>
+<script>
+const usuarioSesion = protegerAdmin();
+if (usuarioSesion){
+  document.querySelector("[data-cerrar-sesion]").addEventListener("click", function(e){ e.preventDefault(); cerrarSesion(); });
+
+  document.getElementById("tabla-productos-body").innerHTML = PRODUCTOS.map(function(p){
+    const stockTexto = (p.stockCritico && p.stock <= p.stockCritico)
+      ? '<span class="pill-stock-critico">' + p.stock + ' ⚠</span>' : p.stock;
+    return (
+      '<tr>' +
+        '<td class="mono">' + p.codigo + '</td>' +
+        '<td>' + p.nombre + '</td>' +
+        '<td>' + p.categoria + '</td>' +
+        '<td>' + formatoCLP(p.precio) + '</td>' +
+        '<td>' + stockTexto + '</td>' +
+        '<td data-solo-admin><div class="acciones">' +
+          '<a class="btn btn-secundario btn-sm" href="producto-form.html?codigo=' + p.codigo + '">Editar</a>' +
+        '</div></td>' +
+      '</tr>'
+    );
+  }).join("");
+}
+</script>
+</body>
+</html>

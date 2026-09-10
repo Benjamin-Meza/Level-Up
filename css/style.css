@@ -1,0 +1,325 @@
+/* =========================================================
+   LEVEL-UP GAMER - Hoja de estilos externa
+   Paleta y tipografías según propuesta de diseño del caso:
+   fondo negro, acentos azul eléctrico / verde neón,
+   Orbitron para títulos y Roboto para texto general.
+   ========================================================= */
+
+:root{
+  --bg: #0a0a0d;
+  --bg-alt: #131318;
+  --surface: #1b1b22;
+  --surface-2: #24242e;
+  --line: #33333f;
+  --text: #ffffff;
+  --text-dim: #d3d3d3;
+  --text-faint: #8c8c99;
+  --azul: #1e90ff;
+  --azul-dim: #145ea8;
+  --verde: #39ff14;
+  --verde-dim: #2bbd0f;
+  --error: #ff5c5c;
+  --error-bg: #3a1414;
+  --radius: 10px;
+  --max-width: 1180px;
+}
+
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+body{
+  margin: 0;
+  /* Fondo con un leve resplandor radial al centro (inspirado en la propuesta
+     "premium" de un compañero de curso): mismo negro de siempre, solo un poco
+     más vivo. Se arma con gradiente CSS, sin imágenes externas. */
+  background-color: var(--bg);
+  background-image: radial-gradient(circle at 50% 0%, rgba(30,144,255,0.08), transparent 60%);
+  background-attachment: fixed;
+  color: var(--text-dim);
+  font-family: 'Roboto', Arial, sans-serif;
+  line-height: 1.6;
+}
+h1,h2,h3,h4{
+  font-family: 'Orbitron', 'Roboto', sans-serif;
+  color: var(--text);
+  letter-spacing: .02em;
+  line-height: 1.25;
+  margin: 0 0 .5em;
+}
+h1{ font-size: clamp(28px, 4vw, 42px); }
+h2{ font-size: clamp(22px, 3vw, 30px); }
+h3{ font-size: 18px; }
+p{ margin: 0 0 1em; }
+a{ color: var(--azul); text-decoration: none; }
+a:hover{ text-decoration: underline; }
+img{ max-width: 100%; display: block; }
+ul{ margin:0; padding:0; list-style:none; }
+
+.contenedor{
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ---------- Botones ---------- */
+.btn{
+  display: inline-flex; align-items:center; justify-content:center; gap:8px;
+  border: none; border-radius: 6px; cursor: pointer;
+  font-family: 'Roboto', sans-serif; font-weight: 700; font-size: 14px;
+  letter-spacing: .03em; text-transform: uppercase;
+  padding: 12px 22px;
+  transition: transform .12s ease, filter .12s ease;
+}
+.btn:hover{ filter: brightness(1.12); text-decoration: none; }
+.btn:active{ transform: translateY(1px); }
+.btn-primario{ background: var(--azul); color: #fff; }
+.btn-primario:hover{ box-shadow: 0 0 18px rgba(30,144,255,.55); }
+.btn-exito{ background: var(--verde); color: #06210a; }
+.btn-exito:hover{ box-shadow: 0 0 18px rgba(57,255,20,.55); }
+.btn-secundario{ background: transparent; color: var(--text); border: 1px solid var(--line); }
+.btn-peligro{ background: var(--error); color: #2a0505; }
+.btn-bloque{ width: 100%; }
+.btn-sm{ padding: 7px 14px; font-size: 12px; }
+
+/* ---------- Header / navegación ---------- */
+.site-header{
+  position: sticky; top: 0; z-index: 20;
+  background: rgba(10,10,13,0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-principal{
+  display:flex; align-items:center; justify-content: space-between;
+  gap: 20px; padding: 14px 0;
+}
+.marca{
+  display:flex; align-items:center; gap:10px;
+  font-family:'Orbitron',sans-serif; font-weight:700; color:var(--text); font-size:18px;
+  text-shadow: 0 0 12px rgba(30,144,255,.45);
+}
+.marca .icono{ font-size: 22px; }
+.menu-nav{ display:flex; gap: 22px; flex-wrap: wrap; }
+.menu-nav a{
+  color: var(--text-dim); font-size: 14px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: .04em;
+}
+.menu-nav a:hover, .menu-nav a.activo{ color: var(--verde); text-decoration:none; }
+.acciones-header{ display:flex; align-items:center; gap: 16px; }
+.acciones-header a{ font-size: 13px; color: var(--text-dim); }
+.carrito-link{
+  display:flex; align-items:center; gap:6px;
+  background: var(--surface); border:1px solid var(--line); border-radius: 100px;
+  padding: 7px 14px; color: var(--text) !important;
+}
+.carrito-link .contador{
+  background: var(--verde); color:#06210a; font-weight:700; font-size:12px;
+  border-radius: 100px; min-width: 20px; height:20px; display:grid; place-content:center;
+}
+.sesion-usuario{ display:flex; align-items:center; gap:10px; font-size:13px; }
+
+/* ---------- Footer ---------- */
+.site-footer{
+  border-top: 1px solid var(--line);
+  margin-top: 60px;
+  padding: 34px 0 24px;
+  background: var(--bg-alt);
+}
+.footer-grid{ display:flex; flex-wrap:wrap; gap: 30px; justify-content: space-between; }
+.footer-grid h4{ font-size: 13px; text-transform: uppercase; letter-spacing:.08em; color: var(--text-faint); margin-bottom: 10px; }
+.footer-grid a{ display:block; color: var(--text-dim); font-size:14px; padding: 3px 0; }
+.footer-nota{ margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--text-faint); text-align:center; }
+
+/* ---------- Hero ---------- */
+.hero{
+  display:grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items:center;
+  padding: 46px 0;
+}
+@media (max-width: 800px){ .hero{ grid-template-columns: 1fr; } }
+.hero-img{
+  aspect-ratio: 4/3; border-radius: var(--radius); overflow:hidden;
+  background: linear-gradient(135deg, var(--azul-dim), var(--surface));
+  display:grid; place-content:center; font-size: 70px; border: 1px solid var(--line);
+  box-shadow: 0 0 50px rgba(30,144,255,.15);
+}
+.hero-img img{ width:100%; height:100%; object-fit: cover; display:block; }
+/* En producto-detalle.html el mismo bloque .hero-img muestra la imagen del
+   producto (en vez del emoji decorativo de la portada), un poco más baja. */
+.hero-img--producto{ aspect-ratio: 1/1; }
+.hero .eyebrow{ color: var(--verde); font-weight:700; text-transform:uppercase; letter-spacing:.1em; font-size:12.5px; }
+
+/* ---------- Secciones ---------- */
+.seccion{ padding: 44px 0; }
+.titulo-seccion{ display:flex; align-items:baseline; justify-content:space-between; gap:14px; margin-bottom: 22px; flex-wrap:wrap; }
+
+/* ---------- Grilla de productos ---------- */
+.grilla-productos{
+  display:grid; grid-template-columns: repeat(auto-fill, minmax(230px,1fr)); gap: 20px;
+}
+.tarjeta-producto{
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  overflow:hidden; display:flex; flex-direction:column;
+  transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.tarjeta-producto:hover{
+  border-color: var(--azul); transform: translateY(-3px);
+  box-shadow: 0 10px 26px rgba(30,144,255,.18);
+}
+.producto-img{
+  aspect-ratio: 1/1; background: var(--surface-2);
+  display:grid; place-content:center; font-size: 46px;
+  border-bottom: 1px solid var(--line);
+  overflow:hidden;
+}
+.producto-img img{ width:100%; height:100%; object-fit: cover; display:block; }
+.tarjeta-producto .cuerpo{ padding: 14px 16px 16px; display:flex; flex-direction:column; gap:6px; flex:1; }
+.tarjeta-producto .categoria{ font-size: 11px; text-transform:uppercase; letter-spacing:.06em; color: var(--text-faint); }
+.tarjeta-producto h3{ font-size: 15px; margin:0; }
+.tarjeta-producto .precio{ color: var(--verde); font-weight:700; font-size: 16px; margin-top:auto; }
+.tarjeta-producto .stock-critico{ color: var(--error); font-size: 12px; }
+
+/* ---------- Detalle producto ---------- */
+.detalle-producto{ display:grid; grid-template-columns: 1fr 1fr; gap: 44px; }
+@media (max-width: 800px){ .detalle-producto{ grid-template-columns: 1fr; } }
+.detalle-producto .precio-grande{ font-size: 28px; color: var(--verde); font-weight:700; }
+.migas{ font-size: 13px; color: var(--text-faint); margin-bottom: 18px; }
+.migas a{ color: var(--text-faint); }
+.selector-cantidad{ display:flex; align-items:center; gap:10px; margin: 18px 0; }
+.selector-cantidad input{ width: 60px; text-align:center; }
+.badge-categoria{
+  display:inline-block; background: var(--surface-2); border:1px solid var(--line);
+  color: var(--text-dim); font-size:12px; padding:4px 10px; border-radius:100px; margin-bottom:10px;
+}
+
+/* ---------- Formularios ---------- */
+.form-card{
+  background: var(--surface); border:1px solid var(--line); border-radius: var(--radius);
+  padding: 30px; max-width: 560px; margin: 0 auto;
+}
+.form-ancho{ max-width: 100%; }
+.campo{ margin-bottom: 18px; }
+.campo label{
+  display:block; font-size: 12.5px; text-transform: uppercase; letter-spacing:.05em;
+  color: var(--text-faint); margin-bottom: 6px; font-weight:600;
+}
+.campo .ayuda{ display:block; font-size:12px; color: var(--text-faint); margin-top:5px; }
+.fila-2{ display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 560px){ .fila-2{ grid-template-columns: 1fr; } }
+input[type=text], input[type=email], input[type=password], input[type=number],
+input[type=tel], input[type=date], textarea, select{
+  width: 100%; padding: 11px 13px; border-radius: 6px;
+  border: 1px solid var(--line); background: var(--bg-alt); color: var(--text);
+  font-family:'Roboto',sans-serif; font-size: 14px;
+}
+textarea{ resize: vertical; min-height: 90px; }
+input:focus, textarea:focus, select:focus{ outline: none; border-color: var(--azul); box-shadow: 0 0 0 3px rgba(30,144,255,.18); }
+input.campo-invalido, textarea.campo-invalido, select.campo-invalido{ border-color: var(--error); }
+.mensaje-error{
+  display:none; color: var(--error); background: var(--error-bg); border:1px solid var(--error);
+  border-radius: 5px; padding: 6px 10px; font-size: 12.5px; margin-top: 6px;
+}
+.mensaje-error.visible{ display:block; }
+.alerta-formulario{
+  display:none; padding: 12px 16px; border-radius: 6px; margin-bottom: 18px; font-size: 14px;
+}
+.alerta-formulario.visible{ display:block; }
+.alerta-formulario.exito{ background: rgba(57,255,20,0.12); border:1px solid var(--verde); color: var(--verde); }
+.alerta-formulario.error{ background: var(--error-bg); border:1px solid var(--error); color: var(--error); }
+
+/* ---------- Carrito ---------- */
+.carrito-tabla{ display:flex; flex-direction:column; gap: 14px; }
+.carrito-item{
+  display:grid; grid-template-columns: 64px 1fr auto auto; gap: 16px; align-items:center;
+  background: var(--surface); border:1px solid var(--line); border-radius: var(--radius); padding: 12px 16px;
+}
+.carrito-item .mini-img{ width:64px; height:64px; border-radius:6px; background: var(--surface-2); display:grid; place-content:center; font-size:24px; overflow:hidden; }
+.carrito-item .mini-img img{ width:100%; height:100%; object-fit: cover; display:block; }
+.carrito-cantidad{ display:flex; align-items:center; gap:8px; }
+.carrito-cantidad button{
+  width: 26px; height:26px; border-radius:5px; border:1px solid var(--line); background: var(--bg-alt); color:var(--text);
+  cursor:pointer; font-size: 14px; line-height:1;
+}
+.carrito-resumen{
+  background: var(--surface); border:1px solid var(--line); border-radius: var(--radius); padding: 22px; height: fit-content;
+}
+.carrito-resumen .total{ display:flex; justify-content:space-between; font-size:20px; font-weight:700; color:var(--text); margin: 14px 0; }
+.carrito-vacio{ text-align:center; padding: 60px 20px; color: var(--text-faint); }
+
+/* ---------- Panel de carrito (acceso rápido, desde el ícono 🛒 del header) ----------
+   Además de carrito.html (la página completa), el ícono del carrito abre este panel
+   lateral con el mismo contenido, para poder revisar/pagar sin salir de la página en
+   la que estás. Se arma e inyecta con JS (ver montarPanelCarrito() en main.js) y
+   reutiliza las mismas clases de .carrito-item / .carrito-vacio, con ids que
+   terminan en "-panel" para no chocar con los de carrito.html. */
+.panel-overlay{
+  position: fixed; inset: 0; background: rgba(0,0,0,.6);
+  opacity: 0; pointer-events: none; transition: opacity .2s ease; z-index: 40;
+}
+.panel-overlay.visible{ opacity: 1; pointer-events: auto; }
+.panel-carrito{
+  position: fixed; top: 0; right: 0; height: 100%; width: min(380px, 100vw);
+  background: var(--bg-alt); border-left: 1px solid var(--line);
+  display:flex; flex-direction:column;
+  transform: translateX(100%); transition: transform .25s ease;
+  z-index: 41; box-shadow: -14px 0 40px rgba(0,0,0,.55);
+}
+.panel-carrito.abierto{ transform: translateX(0); }
+.panel-carrito-header{
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 18px 20px; border-bottom: 1px solid var(--line);
+}
+.panel-carrito-header h3{ margin:0; text-shadow: 0 0 12px rgba(30,144,255,.45); }
+.panel-carrito-cerrar{
+  background:none; border:none; color: var(--text); font-size: 20px; line-height:1;
+  cursor:pointer; padding: 4px 8px;
+}
+.panel-carrito-cuerpo{ flex:1; overflow-y:auto; padding: 16px 20px; }
+.panel-carrito-resumen{ padding: 16px 20px 22px; border-top: 1px solid var(--line); }
+/* En 380px de ancho, la fila de .carrito-item (64px 1fr auto auto) queda muy
+   apretada: acá se acomoda en dos filas para que precio y cantidad no se encimen. */
+.panel-carrito .carrito-item{
+  grid-template-columns: 50px 1fr; grid-template-rows: auto auto;
+  gap: 6px 12px; padding: 10px 12px;
+}
+.panel-carrito .mini-img{ width:50px; height:50px; grid-row: 1 / span 2; }
+.panel-carrito .carrito-cantidad{ grid-column: 2; }
+.panel-carrito .carrito-item > strong:last-child{ grid-column: 2; justify-self:end; margin-top:-30px; }
+.panel-carrito .carrito-vacio{ padding: 40px 10px; }
+
+/* ---------- Blog ---------- */
+.tarjeta-blog{
+  display:grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items:center;
+  background: var(--surface); border:1px solid var(--line); border-radius: var(--radius);
+  padding: 24px; margin-bottom: 20px;
+}
+@media (max-width: 700px){ .tarjeta-blog{ grid-template-columns: 1fr; } }
+.tarjeta-blog .blog-img{ aspect-ratio: 16/10; background: var(--surface-2); border-radius:8px; display:grid; place-content:center; font-size:44px; }
+
+/* ---------- Admin ---------- */
+.admin-layout{ display:grid; grid-template-columns: 230px 1fr; min-height: 100vh; }
+@media (max-width: 800px){ .admin-layout{ grid-template-columns: 1fr; } }
+.admin-sidebar{
+  background: var(--bg-alt); border-right: 1px solid var(--line);
+  padding: 20px 16px; display:flex; flex-direction:column; gap: 4px;
+}
+.admin-sidebar .marca{ margin-bottom: 18px; }
+.admin-sidebar a{
+  color: var(--text-dim); font-size: 14px; padding: 10px 12px; border-radius: 6px;
+}
+.admin-sidebar a:hover{ background: var(--surface); text-decoration:none; }
+.admin-sidebar a.activo{ background: var(--azul-dim); color: #fff; }
+.admin-sidebar .separador{ border-top:1px solid var(--line); margin: 12px 0; }
+.admin-main{ padding: 30px 34px; }
+.admin-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom: 24px; flex-wrap:wrap; gap:12px; }
+.tabla-admin{ width:100%; border-collapse: collapse; background: var(--surface); border:1px solid var(--line); border-radius: var(--radius); overflow:hidden; }
+.tabla-admin th, .tabla-admin td{ text-align:left; padding: 12px 14px; border-bottom: 1px solid var(--line); font-size: 13.5px; }
+.tabla-admin th{ text-transform: uppercase; letter-spacing:.04em; font-size: 11.5px; color: var(--text-faint); background: var(--surface-2); }
+.tabla-admin tr:last-child td{ border-bottom:none; }
+.tabla-admin .acciones{ display:flex; gap:8px; }
+.pill-rol{ display:inline-block; padding:3px 10px; border-radius:100px; font-size:11.5px; font-weight:700; text-transform:uppercase; }
+.pill-rol.administrador{ background: rgba(30,144,255,.18); color:var(--azul); }
+.pill-rol.vendedor{ background: rgba(57,255,20,.14); color:var(--verde); }
+.pill-rol.cliente{ background: var(--surface-2); color: var(--text-faint); }
+.pill-stock-critico{ color: var(--error); font-weight:700; }
+
+/* ---------- Utilidades ---------- */
+.centro-texto{ text-align:center; }
+.tabla-scroll{ overflow-x:auto; }

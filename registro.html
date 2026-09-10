@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registro de usuario · Level-Up Gamer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="contenedor nav-principal">
+    <a href="index.html" class="marca"><span class="icono">🎮</span> Level-Up Gamer</a>
+    <nav class="menu-nav">
+      <a href="index.html">Home</a>
+      <a href="productos.html">Productos</a>
+      <a href="nosotros.html">Nosotros</a>
+      <a href="blogs.html">Blogs</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+    <div class="acciones-header">
+      <span data-sesion-usuario class="sesion-usuario"></span>
+      <a href="carrito.html" class="carrito-link">🛒 Carrito <span class="contador" data-contador-carrito>0</span></a>
+    </div>
+  </div>
+</header>
+
+<main class="seccion contenedor">
+  <div class="form-card">
+    <h1>Registro de usuario</h1>
+    <p>Únete a la comunidad Level-Up y empieza a acumular puntos LevelUp.</p>
+
+    <div class="alerta-formulario" id="registro-alerta"></div>
+
+    <form id="form-registro" novalidate>
+      <div class="campo">
+        <label for="reg-run">RUN (sin puntos ni guion)</label>
+        <input type="text" id="reg-run" placeholder="Ej: 123456785" maxlength="9">
+        <span class="mensaje-error" id="error-reg-run"></span>
+      </div>
+
+      <div class="fila-2">
+        <div class="campo">
+          <label for="reg-nombre">Nombre</label>
+          <input type="text" id="reg-nombre" maxlength="50">
+          <span class="mensaje-error" id="error-reg-nombre"></span>
+        </div>
+        <div class="campo">
+          <label for="reg-apellidos">Apellidos</label>
+          <input type="text" id="reg-apellidos" maxlength="100">
+          <span class="mensaje-error" id="error-reg-apellidos"></span>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="reg-correo">Correo</label>
+        <input type="email" id="reg-correo" maxlength="100" placeholder="tucorreo@duoc.cl">
+        <span class="ayuda">Solo @duoc.cl, @profesor.duoc.cl o @gmail.com — te regalamos 20% de descuento de por vida si usas tu correo Duoc.</span>
+        <span class="mensaje-error" id="error-reg-correo"></span>
+      </div>
+
+      <div class="fila-2">
+        <div class="campo">
+          <label for="reg-contrasena">Contraseña</label>
+          <input type="password" id="reg-contrasena" placeholder="Entre 4 y 10 caracteres">
+          <span class="mensaje-error" id="error-reg-contrasena"></span>
+        </div>
+        <div class="campo">
+          <label for="reg-confirmar">Confirmar contraseña</label>
+          <input type="password" id="reg-confirmar">
+          <span class="mensaje-error" id="error-reg-confirmar"></span>
+        </div>
+      </div>
+
+      <div class="fila-2">
+        <div class="campo">
+          <label for="reg-telefono">Teléfono (opcional)</label>
+          <input type="tel" id="reg-telefono">
+        </div>
+        <div class="campo">
+          <label for="reg-fecha">Fecha de nacimiento (opcional)</label>
+          <input type="date" id="reg-fecha">
+        </div>
+      </div>
+
+      <div class="fila-2">
+        <div class="campo">
+          <label for="reg-region">Región</label>
+          <select id="reg-region"></select>
+          <span class="mensaje-error" id="error-reg-region"></span>
+        </div>
+        <div class="campo">
+          <label for="reg-comuna">Comuna</label>
+          <select id="reg-comuna"></select>
+          <span class="mensaje-error" id="error-reg-comuna"></span>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="reg-direccion">Dirección</label>
+        <input type="text" id="reg-direccion" maxlength="300">
+        <span class="mensaje-error" id="error-reg-direccion"></span>
+      </div>
+
+      <button type="submit" class="btn btn-exito btn-bloque">Registrar</button>
+    </form>
+
+    <p class="centro-texto" style="margin-top:16px; font-size:13px;">
+      ¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a>
+    </p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p class="footer-nota contenedor">© 2026 Level-Up Gamer · Proyecto académico DSY1104, Duoc UC.</p>
+</footer>
+
+<script src="js/datos-productos.js"></script>
+<script src="js/datos-regiones.js"></script>
+<script src="js/datos-usuarios.js"></script>
+<script src="js/validaciones.js"></script>
+<script src="js/carrito.js"></script>
+<script src="js/sesion.js"></script>
+<script src="js/main.js"></script>
+<script>
+// Llena Región y encadena Comuna según la región elegida (ver datos-regiones.js).
+inicializarRegionComuna("reg-region", "reg-comuna");
+
+// Cada campo se valida por separado (ver validaciones.js) y "esValido" se pone en
+// false apenas UNO falla, pero se sigue revisando el resto para mostrar todos
+// los errores juntos de una vez, en lugar de detenerse en el primero.
+document.getElementById("form-registro").addEventListener("submit", function(e){
+  e.preventDefault();
+  let esValido = true;
+  const run = document.getElementById("reg-run").value.trim();
+  const nombre = document.getElementById("reg-nombre").value.trim();
+  const apellidos = document.getElementById("reg-apellidos").value.trim();
+  const correo = document.getElementById("reg-correo").value.trim();
+  const contrasena = document.getElementById("reg-contrasena").value;
+  const confirmar = document.getElementById("reg-confirmar").value;
+  const region = document.getElementById("reg-region").value;
+  const comuna = document.getElementById("reg-comuna").value;
+  const direccion = document.getElementById("reg-direccion").value.trim();
+
+  if (!validarRun(run)){
+    mostrarError("reg-run", "RUN inválido. Ingresa sin puntos ni guion, con dígito verificador correcto.");
+    esValido = false;
+  } else ocultarError("reg-run");
+
+  if (!validarRequerido(nombre) || !validarLargo(nombre, 1, 50)){
+    mostrarError("reg-nombre", "El nombre es obligatorio (máximo 50 caracteres).");
+    esValido = false;
+  } else ocultarError("reg-nombre");
+
+  if (!validarRequerido(apellidos) || !validarLargo(apellidos, 1, 100)){
+    mostrarError("reg-apellidos", "Los apellidos son obligatorios (máximo 100 caracteres).");
+    esValido = false;
+  } else ocultarError("reg-apellidos");
+
+  if (!validarCorreoPermitido(correo) || !validarLargo(correo, 1, 100)){
+    mostrarError("reg-correo", "Usa un correo @duoc.cl, @profesor.duoc.cl o @gmail.com (máx. 100).");
+    esValido = false;
+  } else ocultarError("reg-correo");
+
+  if (!validarContrasena(contrasena)){
+    mostrarError("reg-contrasena", "La contraseña debe tener entre 4 y 10 caracteres.");
+    esValido = false;
+  } else ocultarError("reg-contrasena");
+
+  if (confirmar !== contrasena || !confirmar){
+    mostrarError("reg-confirmar", "Las contraseñas no coinciden.");
+    esValido = false;
+  } else ocultarError("reg-confirmar");
+
+  if (!validarRequerido(region)){
+    mostrarError("reg-region", "Selecciona tu región.");
+    esValido = false;
+  } else ocultarError("reg-region");
+
+  if (!validarRequerido(comuna)){
+    mostrarError("reg-comuna", "Selecciona tu comuna.");
+    esValido = false;
+  } else ocultarError("reg-comuna");
+
+  if (!validarRequerido(direccion) || !validarLargo(direccion, 1, 300)){
+    mostrarError("reg-direccion", "La dirección es obligatoria (máximo 300 caracteres).");
+    esValido = false;
+  } else ocultarError("reg-direccion");
+
+  if (!esValido){
+    mostrarAlertaFormulario("registro-alerta", "Revisa los campos marcados en rojo.", "error");
+    return;
+  }
+
+  if (obtenerTodosLosUsuarios().some(function(u){ return u.correo.toLowerCase() === correo.toLowerCase(); })){
+    mostrarAlertaFormulario("registro-alerta", "Ya existe una cuenta registrada con ese correo.", "error");
+    return;
+  }
+
+  const nuevoUsuario = {
+    run: run.toUpperCase(), nombre: nombre, apellidos: apellidos, correo: correo,
+    contrasena: contrasena, tipoUsuario: "Cliente", region: region, comuna: comuna, direccion: direccion
+  };
+  registrarUsuario(nuevoUsuario);
+  guardarSesion(nuevoUsuario);
+  mostrarAlertaFormulario("registro-alerta", "¡Cuenta creada! Redirigiendo…", "exito");
+  setTimeout(function(){ window.location.href = "index.html"; }, 600);
+});
+</script>
+</body>
+</html>

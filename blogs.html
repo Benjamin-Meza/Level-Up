@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blogs · Level-Up Gamer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="contenedor nav-principal">
+    <a href="index.html" class="marca"><span class="icono">🎮</span> Level-Up Gamer</a>
+    <nav class="menu-nav">
+      <a href="index.html">Home</a>
+      <a href="productos.html">Productos</a>
+      <a href="nosotros.html">Nosotros</a>
+      <a href="blogs.html" class="activo">Blogs</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+    <div class="acciones-header">
+      <span data-sesion-usuario class="sesion-usuario"></span>
+      <a href="carrito.html" class="carrito-link">🛒 Carrito <span class="contador" data-contador-carrito>0</span></a>
+    </div>
+  </div>
+</header>
+
+<main class="seccion contenedor">
+  <h1>Noticias importantes</h1>
+
+  <article class="tarjeta-blog">
+    <div>
+      <h3>Caso curioso #1 — El origen del "Level-Up"</h3>
+      <p>¿Sabías que el concepto de "subir de nivel" viene de los juegos de rol de mesa de los años 70, mucho antes de los videojuegos? Te contamos cómo llegó a ser el corazón de nuestra marca.</p>
+      <a href="blog-detalle-1.html" class="btn btn-secundario btn-sm">Ver caso</a>
+    </div>
+    <div class="blog-img">📜</div>
+  </article>
+
+  <article class="tarjeta-blog">
+    <div>
+      <h3>Caso curioso #2 — Puntos LevelUp y comunidad</h3>
+      <p>Cómo funciona nuestro sistema de referidos y puntos LevelUp, y por qué cada compra que haces apoya directamente a eventos gamers locales.</p>
+      <a href="blog-detalle-2.html" class="btn btn-secundario btn-sm">Ver caso</a>
+    </div>
+    <div class="blog-img">🏆</div>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <p class="footer-nota contenedor">© 2026 Level-Up Gamer · Proyecto académico DSY1104, Duoc UC.</p>
+</footer>
+
+<script src="js/datos-productos.js"></script>
+<script src="js/datos-regiones.js"></script>
+<script src="js/validaciones.js"></script>
+<script src="js/carrito.js"></script>
+<script src="js/sesion.js"></script>
+</body>
+</html>

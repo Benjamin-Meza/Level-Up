@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iniciar sesión · Level-Up Gamer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="contenedor nav-principal">
+    <a href="index.html" class="marca"><span class="icono">🎮</span> Level-Up Gamer</a>
+    <nav class="menu-nav">
+      <a href="index.html">Home</a>
+      <a href="productos.html">Productos</a>
+      <a href="nosotros.html">Nosotros</a>
+      <a href="blogs.html">Blogs</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+    <div class="acciones-header">
+      <span data-sesion-usuario class="sesion-usuario"></span>
+      <a href="carrito.html" class="carrito-link">🛒 Carrito <span class="contador" data-contador-carrito>0</span></a>
+    </div>
+  </div>
+</header>
+
+<main class="seccion contenedor">
+  <div class="form-card">
+    <div class="centro-texto" style="margin-bottom:20px;">
+      <div style="font-size:44px;">🎮</div>
+      <h1>Level-Up Gamer</h1>
+      <p>Inicio de sesión</p>
+    </div>
+
+    <div class="alerta-formulario" id="login-alerta"></div>
+
+    <form id="form-login" novalidate>
+      <div class="campo">
+        <label for="login-correo">Correo</label>
+        <input type="email" id="login-correo" name="correo" placeholder="tucorreo@duoc.cl">
+        <span class="mensaje-error" id="error-login-correo"></span>
+      </div>
+      <div class="campo">
+        <label for="login-contrasena">Contraseña</label>
+        <input type="password" id="login-contrasena" name="contrasena" placeholder="Entre 4 y 10 caracteres">
+        <span class="mensaje-error" id="error-login-contrasena"></span>
+      </div>
+      <button type="submit" class="btn btn-primario btn-bloque">Iniciar sesión</button>
+    </form>
+
+    <p class="centro-texto" style="margin-top:16px; font-size:13px;">
+      ¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a>
+    </p>
+    <p class="centro-texto" style="font-size:12px; color:var(--text-faint);">
+      Demo: admin@duoc.cl / admin123 (Administrador) · vendedor@gmail.com / vend123 (Vendedor)
+    </p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p class="footer-nota contenedor">© 2026 Level-Up Gamer · Proyecto académico DSY1104, Duoc UC.</p>
+</footer>
+
+<script src="js/datos-productos.js"></script>
+<script src="js/datos-regiones.js"></script>
+<script src="js/datos-usuarios.js"></script>
+<script src="js/validaciones.js"></script>
+<script src="js/carrito.js"></script>
+<script src="js/sesion.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.getElementById("form-login").addEventListener("submit", function(e){
+  e.preventDefault();
+  let esValido = true;
+  const correo = document.getElementById("login-correo").value.trim();
+  const contrasena = document.getElementById("login-contrasena").value;
+
+  if (!validarRequerido(correo) || !validarCorreoPermitido(correo)){
+    mostrarError("login-correo", "Ingresa un correo válido de @duoc.cl, @profesor.duoc.cl o @gmail.com.");
+    esValido = false;
+  } else {
+    ocultarError("login-correo");
+  }
+
+  if (!validarContrasena(contrasena)){
+    mostrarError("login-contrasena", "La contraseña debe tener entre 4 y 10 caracteres.");
+    esValido = false;
+  } else {
+    ocultarError("login-contrasena");
+  }
+
+  if (!esValido) return;
+
+  const usuario = obtenerTodosLosUsuarios().find(function(u){
+    return u.correo.toLowerCase() === correo.toLowerCase();
+  });
+
+  if (usuario && usuario.contrasena !== contrasena){
+    mostrarAlertaFormulario("login-alerta", "La contraseña no coincide con ese correo.", "error");
+    return;
+  }
+
+  // Si el correo no está registrado, se simula un acceso como Cliente nuevo.
+  const sesion = usuario || { nombre: correo.split("@")[0], correo: correo, tipoUsuario: "Cliente" };
+  guardarSesion(sesion);
+  mostrarAlertaFormulario("login-alerta", "Sesión iniciada, redirigiendo…", "exito");
+  setTimeout(function(){
+    window.location.href = (sesion.tipoUsuario === "Cliente") ? "index.html" : "admin/index.html";
+  }, 500);
+});
+
+// Validación en tiempo real mientras el usuario escribe.
+document.getElementById("login-correo").addEventListener("input", function(){
+  if (validarCorreoPermitido(this.value.trim())) ocultarError("login-correo");
+});
+document.getElementById("login-contrasena").addEventListener("input", function(){
+  if (validarContrasena(this.value)) ocultarError("login-contrasena");
+});
+</script>
+</body>
+</html>

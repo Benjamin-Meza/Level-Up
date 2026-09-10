@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <rect width="400" height="400" fill="#1b1b22"/>
+  <rect width="400" height="400" fill="url(#grid6)"/>
+  <defs>
+    <pattern id="grid6" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#2a2a34" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <path d="M200 90 C260 90 280 150 280 220 C280 280 250 320 200 320
+           C150 320 120 280 120 220 C120 150 140 90 200 90 Z"
+        fill="#101018" stroke="#1e90ff" stroke-width="3"/>
+  <line x1="200" y1="90" x2="200" y2="190" stroke="#2a2a34" stroke-width="3"/>
+  <rect x="190" y="120" width="20" height="45" rx="8" fill="#39ff14"/>
+  <path d="M120 220 Q200 240 280 220" fill="none" stroke="#1e90ff" stroke-width="2" opacity="0.6"/>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <rect width="400" height="400" fill="#1b1b22"/>
+  <rect width="400" height="400" fill="url(#grid5)"/>
+  <defs>
+    <pattern id="grid5" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#2a2a34" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <!-- respaldo -->
+  <rect x="140" y="70" width="120" height="170" rx="30" fill="#101018" stroke="#1e90ff" stroke-width="4"/>
+  <path d="M165 95 Q160 155 172 225" fill="none" stroke="#39ff14" stroke-width="5" stroke-linecap="round"/>
+  <!-- asiento -->
+  <rect x="120" y="240" width="160" height="36" rx="14" fill="#101018" stroke="#1e90ff" stroke-width="4"/>
+  <!-- apoyabrazos -->
+  <rect x="88" y="232" width="22" height="60" rx="8" fill="#2a2a34" stroke="#39393f" stroke-width="2"/>
+  <rect x="290" y="232" width="22" height="60" rx="8" fill="#2a2a34" stroke="#39393f" stroke-width="2"/>
+  <!-- base con ruedas -->
+  <line x1="200" y1="276" x2="200" y2="322" stroke="#39393f" stroke-width="10"/>
+  <g stroke="#39393f" stroke-width="8" stroke-linecap="round">
+    <line x1="200" y1="322" x2="200" y2="322"/>
+    <line x1="200" y1="322" x2="145" y2="345"/>
+    <line x1="200" y1="322" x2="255" y2="345"/>
+    <line x1="200" y1="322" x2="160" y2="300"/>
+    <line x1="200" y1="322" x2="240" y2="300"/>
+  </g>
+  <g fill="#54545e">
+    <circle cx="145" cy="345" r="9"/>
+    <circle cx="255" cy="345" r="9"/>
+    <circle cx="160" cy="300" r="9"/>
+    <circle cx="240" cy="300" r="9"/>
+    <circle cx="200" cy="322" r="9"/>
+  </g>
+</svg>

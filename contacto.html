@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contacto · Level-Up Gamer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="contenedor nav-principal">
+    <a href="index.html" class="marca"><span class="icono">🎮</span> Level-Up Gamer</a>
+    <nav class="menu-nav">
+      <a href="index.html">Home</a>
+      <a href="productos.html">Productos</a>
+      <a href="nosotros.html">Nosotros</a>
+      <a href="blogs.html">Blogs</a>
+      <a href="contacto.html" class="activo">Contacto</a>
+    </nav>
+    <div class="acciones-header">
+      <span data-sesion-usuario class="sesion-usuario"></span>
+      <a href="carrito.html" class="carrito-link">🛒 Carrito <span class="contador" data-contador-carrito>0</span></a>
+    </div>
+  </div>
+</header>
+
+<main class="seccion contenedor">
+  <div class="form-card">
+    <div class="centro-texto" style="margin-bottom:20px;">
+      <div style="font-size:44px;">✉️</div>
+      <h1>Level-Up Gamer</h1>
+      <p>Formulario de contacto</p>
+    </div>
+
+    <div class="alerta-formulario" id="contacto-alerta"></div>
+
+    <form id="form-contacto" novalidate>
+      <div class="campo">
+        <label for="contacto-nombre">Nombre completo</label>
+        <input type="text" id="contacto-nombre" maxlength="100">
+        <span class="mensaje-error" id="error-contacto-nombre"></span>
+      </div>
+      <div class="campo">
+        <label for="contacto-correo">Correo</label>
+        <input type="email" id="contacto-correo" maxlength="100" placeholder="tucorreo@gmail.com">
+        <span class="mensaje-error" id="error-contacto-correo"></span>
+      </div>
+      <div class="campo">
+        <label for="contacto-comentario">Comentario</label>
+        <textarea id="contacto-comentario" maxlength="500"></textarea>
+        <span class="ayuda"><span id="contacto-contador">0</span>/500 caracteres</span>
+        <span class="mensaje-error" id="error-contacto-comentario"></span>
+      </div>
+      <button type="submit" class="btn btn-primario btn-bloque">Enviar mensaje</button>
+    </form>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p class="footer-nota contenedor">© 2026 Level-Up Gamer · Proyecto académico DSY1104, Duoc UC.</p>
+</footer>
+
+<script src="js/datos-productos.js"></script>
+<script src="js/datos-regiones.js"></script>
+<script src="js/validaciones.js"></script>
+<script src="js/carrito.js"></script>
+<script src="js/sesion.js"></script>
+<script src="js/main.js"></script>
+<script>
+const comentarioInput = document.getElementById("contacto-comentario");
+comentarioInput.addEventListener("input", function(){
+  document.getElementById("contacto-contador").textContent = this.value.length;
+});
+
+document.getElementById("form-contacto").addEventListener("submit", function(e){
+  e.preventDefault();
+  let esValido = true;
+
+  const nombre = document.getElementById("contacto-nombre").value.trim();
+  const correo = document.getElementById("contacto-correo").value.trim();
+  const comentario = comentarioInput.value.trim();
+
+  if (!validarRequerido(nombre) || !validarLargo(nombre, 1, 100)){
+    mostrarError("contacto-nombre", "El nombre es obligatorio (máximo 100 caracteres).");
+    esValido = false;
+  } else ocultarError("contacto-nombre");
+
+  if (correo && (!validarCorreoPermitido(correo) || !validarLargo(correo, 1, 100))){
+    mostrarError("contacto-correo", "Usa un correo válido de @duoc.cl, @profesor.duoc.cl o @gmail.com (máx. 100).");
+    esValido = false;
+  } else ocultarError("contacto-correo");
+
+  if (!validarRequerido(comentario) || !validarLargo(comentario, 1, 500)){
+    mostrarError("contacto-comentario", "Cuéntanos tu consulta (máximo 500 caracteres).");
+    esValido = false;
+  } else ocultarError("contacto-comentario");
+
+  if (!esValido){
+    mostrarAlertaFormulario("contacto-alerta", "Revisa los campos marcados en rojo.", "error");
+    return;
+  }
+
+  mostrarAlertaFormulario("contacto-alerta", "¡Gracias " + nombre + "! Tu mensaje fue enviado.", "exito");
+  this.reset();
+  document.getElementById("contacto-contador").textContent = "0";
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <rect width="400" height="400" fill="#1b1b22"/>
+  <rect x="0" y="0" width="400" height="400" fill="url(#grid1)"/>
+  <defs>
+    <pattern id="grid1" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#2a2a34" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <!-- tablero -->
+  <g transform="rotate(-8 200 210)">
+    <rect x="90" y="130" width="220" height="220" rx="14" fill="#145ea8"/>
+    <rect x="104" y="144" width="192" height="192" rx="8" fill="#0f1a24"/>
+    <path d="M104 144 L296 144 L200 240 Z" fill="#1e90ff" opacity="0.85"/>
+    <path d="M104 336 L296 336 L200 240 Z" fill="#39ff14" opacity="0.55"/>
+    <path d="M104 144 L104 336 L200 240 Z" fill="#1e90ff" opacity="0.5"/>
+    <path d="M296 144 L296 336 L200 240 Z" fill="#39ff14" opacity="0.8"/>
+  </g>
+  <!-- dado 1 -->
+  <g transform="translate(255 90) rotate(12)">
+    <rect width="70" height="70" rx="12" fill="#ffffff"/>
+    <circle cx="18" cy="18" r="6" fill="#0a0a0d"/>
+    <circle cx="52" cy="18" r="6" fill="#0a0a0d"/>
+    <circle cx="18" cy="52" r="6" fill="#0a0a0d"/>
+    <circle cx="52" cy="52" r="6" fill="#0a0a0d"/>
+    <circle cx="35" cy="35" r="6" fill="#0a0a0d"/>
+  </g>
+  <!-- dado 2 -->
+  <g transform="translate(70 260) rotate(-16)">
+    <rect width="56" height="56" rx="10" fill="#39ff14"/>
+    <circle cx="15" cy="28" r="5" fill="#06210a"/>
+    <circle cx="41" cy="28" r="5" fill="#06210a"/>
+  </g>
+</svg>

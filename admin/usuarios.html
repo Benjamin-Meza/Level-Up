@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Usuarios · Panel Level-Up Gamer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar">
+    <a href="index.html" class="marca"><span class="icono">🎮</span> Level-Up Admin</a>
+    <a href="index.html">🏠 Home</a>
+    <a href="productos.html">📦 Productos</a>
+    <a href="ordenes.html">🧾 Órdenes</a>
+    <div class="separador"></div>
+    <a href="usuarios.html" class="activo">👤 Usuarios</a>
+    <div class="separador"></div>
+    <a href="../index.html">🌐 Ver tienda</a>
+    <a href="#" data-cerrar-sesion>🚪 Cerrar sesión</a>
+  </aside>
+
+  <main class="admin-main">
+    <div class="admin-header">
+      <h1>Usuarios</h1>
+      <a href="usuario-form.html" class="btn btn-exito">+ Nuevo usuario</a>
+    </div>
+
+    <div class="tabla-scroll">
+      <table class="tabla-admin">
+        <thead>
+          <tr><th>RUN</th><th>Nombre</th><th>Correo</th><th>Tipo</th><th>Región / Comuna</th><th>Acciones</th></tr>
+        </thead>
+        <tbody id="tabla-usuarios-body"></tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<script src="../js/datos-productos.js"></script>
+<script src="../js/datos-regiones.js"></script>
+<script src="../js/datos-usuarios.js"></script>
+<script src="../js/validaciones.js"></script>
+<script src="../js/carrito.js"></script>
+<script src="../js/sesion.js"></script>
+<script>
+const usuarioSesion = protegerAdmin();
+
+// Mantenedor de usuarios: solo el rol Administrador puede entrar aquí.
+if (usuarioSesion && usuarioSesion.tipoUsuario !== "Administrador"){
+  window.location.href = "index.html";
+}
+
+if (usuarioSesion){
+  document.querySelector("[data-cerrar-sesion]").addEventListener("click", function(e){ e.preventDefault(); cerrarSesion(); });
+
+  document.getElementById("tabla-usuarios-body").innerHTML = obtenerTodosLosUsuarios().map(function(u){
+    return (
+      '<tr>' +
+        '<td class="mono">' + u.run + '</td>' +
+        '<td>' + u.nombre + ' ' + (u.apellidos || "") + '</td>' +
+        '<td>' + u.correo + '</td>' +
+        '<td><span class="pill-rol ' + u.tipoUsuario.toLowerCase() + '">' + u.tipoUsuario + '</span></td>' +
+        '<td>' + (u.region || "-") + (u.comuna ? " / " + u.comuna : "") + '</td>' +
+        '<td><div class="acciones"><a class="btn btn-secundario btn-sm" href="usuario-form.html?correo=' + encodeURIComponent(u.correo) + '">Editar</a></div></td>' +
+      '</tr>'
+    );
+  }).join("");
+}
+</script>
+</body>
+</html>

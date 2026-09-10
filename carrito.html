@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi carrito · Level-Up Gamer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="contenedor nav-principal">
+    <a href="index.html" class="marca"><span class="icono">🎮</span> Level-Up Gamer</a>
+    <nav class="menu-nav">
+      <a href="index.html">Home</a>
+      <a href="productos.html">Productos</a>
+      <a href="nosotros.html">Nosotros</a>
+      <a href="blogs.html">Blogs</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+    <div class="acciones-header">
+      <span data-sesion-usuario class="sesion-usuario"></span>
+      <a href="carrito.html" class="carrito-link">🛒 Carrito <span class="contador" data-contador-carrito>0</span></a>
+    </div>
+  </div>
+</header>
+
+<main class="seccion contenedor">
+  <h1>Mi carrito de compras</h1>
+  <div style="display:grid; grid-template-columns: 1fr 320px; gap:30px; align-items:start;">
+    <div>
+      <div class="carrito-tabla" id="carrito-items"></div>
+      <div class="carrito-vacio" id="carrito-vacio" style="display:none;">
+        <p>Tu carrito está vacío.</p>
+        <a href="productos.html" class="btn btn-primario">Ver productos</a>
+      </div>
+    </div>
+    <aside class="carrito-resumen" id="carrito-resumen">
+      <h3>Resumen</h3>
+      <div class="total"><span>Total</span><span id="carrito-total">$0</span></div>
+      <div id="mensaje-pago"></div>
+      <button class="btn btn-exito btn-bloque" id="btn-pagar">Pagar</button>
+    </aside>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p class="footer-nota contenedor">© 2026 Level-Up Gamer · Proyecto académico DSY1104, Duoc UC.</p>
+</footer>
+
+<script src="js/datos-productos.js"></script>
+<script src="js/datos-regiones.js"></script>
+<script src="js/validaciones.js"></script>
+<script src="js/carrito.js"></script>
+<script src="js/sesion.js"></script>
+<script src="js/main.js"></script>
+<script>
+  // Pinta el carrito guardado en localStorage apenas carga la página.
+  renderizarCarrito();
+  // "Pagar" simula el checkout: no hay pasarela de pago real en esta entrega,
+  // así que solo se confirma la compra y se vacía el carrito (ver finalizarCompra en main.js).
+  // OJO: se envuelve en function() {} para no pasarle el evento del click como
+  // si fuera el parámetro "sufijo" de finalizarCompra().
+  document.getElementById("btn-pagar").addEventListener("click", function(){ finalizarCompra(); });
+</script>
+</body>
+</html>

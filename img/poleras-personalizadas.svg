@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <rect width="400" height="400" fill="#1b1b22"/>
+  <rect width="400" height="400" fill="url(#grid8)"/>
+  <defs>
+    <pattern id="grid8" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#2a2a34" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <path d="M150 110 L120 140 L100 130 L90 180 L120 195 L120 320 L280 320
+           L280 195 L310 180 L300 130 L280 140 L250 110
+           Q235 130 200 130 Q165 130 150 110 Z"
+        fill="#101018" stroke="#1e90ff" stroke-width="3"/>
+  <path d="M175 190 L200 250 L225 190" fill="none" stroke="#39ff14" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

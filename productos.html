@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Productos · Level-Up Gamer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="contenedor nav-principal">
+    <a href="index.html" class="marca"><span class="icono">🎮</span> Level-Up Gamer</a>
+    <nav class="menu-nav">
+      <a href="index.html">Home</a>
+      <a href="productos.html" class="activo">Productos</a>
+      <a href="nosotros.html">Nosotros</a>
+      <a href="blogs.html">Blogs</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+    <div class="acciones-header">
+      <span data-sesion-usuario class="sesion-usuario"></span>
+      <a href="carrito.html" class="carrito-link">🛒 Carrito <span class="contador" data-contador-carrito>0</span></a>
+    </div>
+  </div>
+</header>
+
+<!-- Catálogo completo + filtro por categoría. Ambos contenedores se llenan
+     desde el script de más abajo (main.js): acá solo van los "ganchos" vacíos. -->
+<main class="seccion contenedor">
+  <div class="titulo-seccion">
+    <h1>Productos</h1>
+    <select id="filtro-categoria" style="max-width:260px;"></select>
+  </div>
+  <div class="grilla-productos" id="grilla-productos"></div>
+</main>
+
+<footer class="site-footer">
+  <div class="contenedor footer-grid">
+    <div><h4>Level-Up Gamer</h4><a href="nosotros.html">Nosotros</a><a href="blogs.html">Blogs</a><a href="contacto.html">Contacto</a></div>
+    <div><h4>Categorías</h4><a href="productos.html">Consolas</a><a href="productos.html">Sillas Gamers</a><a href="productos.html">Accesorios</a></div>
+    <div><h4>Cuenta</h4><a href="login.html">Iniciar sesión</a><a href="registro.html">Registrarse</a><a href="carrito.html">Mi carrito</a></div>
+  </div>
+  <p class="footer-nota contenedor">© 2026 Level-Up Gamer · Proyecto académico DSY1104, Duoc UC.</p>
+</footer>
+
+<script src="js/datos-productos.js"></script>
+<script src="js/datos-regiones.js"></script>
+<script src="js/validaciones.js"></script>
+<script src="js/carrito.js"></script>
+<script src="js/sesion.js"></script>
+<script src="js/main.js"></script>
+<script>
+  // Al entrar se muestran TODOS los productos; el filtro (inicializarFiltroCategorias,
+  // en main.js) vuelve a llamar renderizarGrillaProductos() cada vez que cambia el <select>.
+  renderizarGrillaProductos("grilla-productos", PRODUCTOS);
+  inicializarFiltroCategorias("filtro-categoria", "grilla-productos");
+</script>
+</body>
+</html>
